@@ -3,6 +3,7 @@ package com.fh.skilltracker.controller;
 import com.fh.skilltracker.domain.Employee;
 import com.fh.skilltracker.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,10 +31,10 @@ public class EmployeeController {
         return null;
     }
     @DeleteMapping("/{employeeId}")
-    public Employee  deleteEmployeeById(@PathVariable(name = "employeeId") String id){
+    public ResponseEntity.BodyBuilder deleteEmployeeById(@PathVariable(name = "employeeId") String id){
 
 
-        return null;
+        return ResponseEntity.status(200);
     }
     @PutMapping("/{employeeId}")
     public Employee  putEmployeeById(@PathVariable(name = "employeeId")  String id, @Valid Employee employee){
