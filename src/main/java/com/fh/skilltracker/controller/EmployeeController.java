@@ -18,7 +18,7 @@ public class EmployeeController {
 
     @GetMapping("")
     public List<Employee>  getAllEmployee(){
-        return null;
+        return employeeService.findAll();
     }
     @PostMapping("")
     public Employee  addEmployee(Employee employee){
