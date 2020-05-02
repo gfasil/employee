@@ -5,10 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -22,12 +20,14 @@ public class Skill {
             strategy = "uuid"
     )
     @Column(columnDefinition = "CHAR(32)")
+    @NotNull
     private String id;
     private String description;
-    private String street;
-    private String suite;
-    private String city;
-    private String region;
-    private String country;
+    @OneToOne
+    @NotNull
+    private Field filed;
+    @NotNull
+    private String experience;
+    private String Summary;
 
 }

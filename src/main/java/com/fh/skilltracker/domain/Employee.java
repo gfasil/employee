@@ -57,5 +57,17 @@ public class Employee {
     @NotNull
     private BusinessUnit businessUnit;
 
-
+    public Employee(String id,String firstName, String lastName, Address address, String contactEmail,
+                    String companyEmail, String birthDate, String hiredDate, ROLE role, BusinessUnit businessUnit) {
+        this.firstName=firstName;
+        this.lastName=lastName;
+        this.address=address;
+        this.birthDate=birthDate;
+        this.businessUnit=businessUnit;
+        this.role=role;
+        this.companyEmail=companyEmail;
+        this.contactEmail=contactEmail;
+        this.hiredDate=hiredDate;
+        this.id=id;
+    }
 }
