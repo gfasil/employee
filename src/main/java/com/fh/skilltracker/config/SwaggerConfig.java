@@ -14,6 +14,6 @@ public class SwaggerConfig {
     @Bean
     public Docket AttendanceApi(){
 
-        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.cs544")).build();
+        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("com.fh.skilltracker")).build();
     }
 }

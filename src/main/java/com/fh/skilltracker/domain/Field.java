@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -21,7 +23,10 @@ public class Field {
             strategy = "uuid"
     )
     @Column(columnDefinition = "CHAR(32)")
+    @NotNull
     private String id;
+    @NotNull
     private String name;
+    @NotNull
     private String type;
 }

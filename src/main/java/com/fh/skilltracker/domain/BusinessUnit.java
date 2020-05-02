@@ -1,5 +1,5 @@
 package com.fh.skilltracker.domain;
 
 public enum BusinessUnit {
-    DIGITALEXPERIENCEGROUP, ADOBE, IBMNBU, APIMANAGEMENT;
+    DIGITAL_EXPERIENCE_GROUP, ADOBE, IBM_NBU, API_MANAGEMENT;
     }

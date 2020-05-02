@@ -5,6 +5,7 @@ import com.fh.skilltracker.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,6 +19,11 @@ public class EmployeeController {
     public List<Employee>  getAllEmployee(){
         return null;
     }
+    @PostMapping("")
+    public Employee  addEmployee(Employee employee){
+
+        return null;
+    }
     @GetMapping("/{employeeId}")
     public Employee  getEmployeeById(@PathVariable(name = "employeeId") String id){
 
@@ -28,9 +34,10 @@ public class EmployeeController {
 
         return null;
     }
-    @PutMapping("")
-    public Employee  addEmployee(Employee employee){
+    @PutMapping("/{employeeId}")
+    public Employee  putEmployeeById(@PathVariable(name = "employeeId")  String id, @Valid Employee employee){
 
         return null;
     }
+
 }
