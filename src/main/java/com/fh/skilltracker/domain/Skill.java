@@ -20,12 +20,12 @@ public class Skill {
             strategy = "uuid"
     )
     @Column(columnDefinition = "CHAR(32)")
-    @NotNull
+
     private String id;
     private String description;
     @OneToOne(cascade=CascadeType.ALL)
     @NotNull
-    private Field filed;
+    private Field field;
     @NotNull
     private String experience;
     private String Summary;

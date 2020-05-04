@@ -3,6 +3,7 @@ package com.fh.skilltracker.service;
 import com.fh.skilltracker.domain.Employee;
 import com.fh.skilltracker.domain.Skill;
 import com.fh.skilltracker.exception.EntityNotFoundException;
+import com.fh.skilltracker.repository.EmployeeRepository;
 import com.fh.skilltracker.repository.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,8 @@ public class SkillServiceImp implements SkillService {
 
     @Autowired
     EmployeeService employeeService;
+    @Autowired
+    EmployeeRepository employeeRepository;
 
     @Override
     public List<Skill> findAllEmployeeSkills(String employeeId) {
@@ -55,7 +58,7 @@ public class SkillServiceImp implements SkillService {
 
         oldSkill.setDescription(skill.getDescription());
         oldSkill.setExperience(skill.getExperience());
-        oldSkill.setFiled(skill.getFiled());
+        oldSkill.setField(skill.getField());
         oldSkill.setSummary(skill.getSummary());
         skillRepository.save(oldSkill);
 
@@ -70,7 +73,7 @@ public class SkillServiceImp implements SkillService {
             return null;
         }
         employee.getSkills().remove(skill);
-
+        employeeService.update(employeeId,employee);
 
         return skill;
     }

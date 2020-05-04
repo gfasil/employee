@@ -25,7 +25,7 @@ public class Employee {
             strategy = "uuid"
     )
     @Column(columnDefinition = "CHAR(32)")
-    @NotNull
+
     private String id;
     @NotNull
     private String firstName;

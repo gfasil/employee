@@ -23,7 +23,6 @@ public class Field {
             strategy = "uuid"
     )
     @Column(columnDefinition = "CHAR(32)")
-    @NotNull
     private String id;
     @NotNull
     private String name;
