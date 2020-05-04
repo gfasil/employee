@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Jumbotron } from "react-bootstrap";
 
-class Welcome extends Component {
+export default class Welcome extends Component {
   state = {};
   render() {
     return (
@@ -14,5 +14,3 @@ class Welcome extends Component {
     );
   }
 }
-
-export default Welcome;
