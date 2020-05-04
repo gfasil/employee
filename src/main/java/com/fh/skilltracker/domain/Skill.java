@@ -23,7 +23,7 @@ public class Skill {
     @NotNull
     private String id;
     private String description;
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @NotNull
     private Field filed;
     @NotNull

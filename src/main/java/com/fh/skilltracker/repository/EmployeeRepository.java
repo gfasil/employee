@@ -10,4 +10,6 @@ import java.util.List;
 public interface EmployeeRepository extends CrudRepository<Employee,String> {
 
     public List<Employee> findAll();
+    public Employee getEmployeeById(String id);
+    public Employee findByFirstNameAndLastName(String firstName,String lastName);
 }

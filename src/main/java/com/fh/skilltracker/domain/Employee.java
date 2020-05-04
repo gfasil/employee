@@ -31,7 +31,7 @@ public class Employee {
     private String firstName;
     @NotNull
     private String lastName;
-    @OneToOne
+    @OneToOne(cascade =  CascadeType.ALL)
     @Valid
     private Address address;
     @NotNull
@@ -45,13 +45,13 @@ public class Employee {
     @NotNull
     private String hiredDate;
     @NotNull
-    @Enumerated(value = EnumType.STRING)
-    @Column(length = 32, columnDefinition = "varchar(32) default 'TECHNICAL_CONSULTANT'")
-    private ROLE role=ROLE.TECHNICAL_CONSULTANT;
+    @Enumerated
+   // @Column(length = 32, columnDefinition = "varchar(32) default 'TECHNICAL_CONSULTANT'")
+    private ROLE role;
     @OneToMany(cascade =  CascadeType.ALL)
     @JoinColumn(name = "employee_id")
     private List<Skill> skills;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REFRESH)
     @Valid
     private Employee assignedTo;
     @NotNull

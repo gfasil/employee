@@ -5,7 +5,6 @@ import com.fh.skilltracker.domain.Skill;
 import com.fh.skilltracker.exception.EntityNotFoundException;
 import com.fh.skilltracker.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
@@ -23,13 +22,28 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Override
     public Employee findById(String id) {
-        return employeeRepository.findById(id).orElseThrow(()->new EntityNotFoundException(Employee.class,"id",id));
+        Employee emp= employeeRepository.getEmployeeById(id);
+    if(emp==null){
+        throw new EntityNotFoundException(Employee.class,"id",id);
+    }
+        System.out.println("employe in service first"+emp);
+    return emp;
     }
 
     @Override
-    public ResponseEntity<?> deleteById(String id) {
-        employeeRepository.deleteById(id);
-        return ResponseEntity.ok().build();
+    public Employee findByFirstAndLastName(String firstName, String lastName) {
+        return employeeRepository.findByFirstNameAndLastName(firstName,lastName);
+    }
+
+    @Override
+    public Employee deleteById(String id) {
+        Employee currentEmployee= employeeRepository.getEmployeeById(id);
+        if (currentEmployee.equals(null)) {
+            return null;
+        }
+        employeeRepository.delete(currentEmployee);
+
+       return currentEmployee;
     }
 
     @Override
@@ -39,21 +53,32 @@ public class EmployeeServiceImp implements EmployeeService {
 
     @Override
     public Employee update(String id, @Valid Employee employee) {
-        Employee emp=employeeRepository.findById(id).orElseThrow(()->new EntityNotFoundException(Employee.class,"id",id));
-        emp.setAddress(employee.getAddress());
-        emp.setAssignedTo(employee.getAssignedTo());
-        emp.setAddress(employee.getAddress());
-        emp.setBirthDate(employee.getBirthDate());
-        emp.setBusinessUnit(employee.getBusinessUnit());
-        emp.setCompanyEmail(employee.getCompanyEmail());
-        emp.setHiredDate(employee.getHiredDate());
-        emp.setFirstName(employee.getFirstName());
-        emp.setLastName(employee.getLastName());
-        emp.setRole(employee.getRole());
+
+        Employee currentEmployee=findById(id);
+        if (currentEmployee.equals(null)) {
+            return null;
+        }
+        currentEmployee.setAddress(employee.getAddress());
+        currentEmployee.setAssignedTo(employee.getAssignedTo());
+        currentEmployee.setAddress(employee.getAddress());
+        currentEmployee.setBirthDate(employee.getBirthDate());
+        currentEmployee.setBusinessUnit(employee.getBusinessUnit());
+        currentEmployee.setCompanyEmail(employee.getCompanyEmail());
+        currentEmployee.setHiredDate(employee.getHiredDate());
+        currentEmployee.setFirstName(employee.getFirstName());
+        currentEmployee.setLastName(employee.getLastName());
+        currentEmployee.setRole(employee.getRole());
         List<Skill> skills=new ArrayList<>();
         skills.addAll(employee.getSkills());
-        emp.setSkills(skills);
+        currentEmployee.setSkills(skills);
 
-        return employeeRepository.save(emp);
+        return employeeRepository.save(currentEmployee);
     }
+
+    @Override
+    public boolean isEmployeeExists(Employee employee) {
+        return (findByFirstAndLastName(employee.getFirstName(),employee.getLastName())!=null) ;
+
+    }
+
 }
