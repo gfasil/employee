@@ -7,6 +7,8 @@ import Welcome from "./components/welcome";
 import Footer from "./components/Footer";
 import Employee from "./components/Employee";
 import EmployeeList from "./components/EmployeeList";
+// import Skill from "./components/SKill";
+import SkillList from "./components/SKillList";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
               <Route path="/add" exact component={Employee}></Route>
               <Route path="/edit/:id" exact component={Employee}></Route>
               <Route path="/list" exact component={EmployeeList}></Route>
+              <Route path="/:id/skillsList" exact component={SkillList}></Route>
+              {/* <Route path=":id/addkills" exact component={Skill}></Route> */}
             </Switch>
           </Col>
         </Row>

@@ -101,7 +101,7 @@ export default class EmployeeList extends Component {
                       <td>
                         <ButtonGroup>
                           <Link
-                            to={""}
+                            to={employee.id + "/skillsList"}
                             className="btn btn-sm btn-outline-primary"
                             size="mm"
                             value="view skills"
@@ -109,30 +109,16 @@ export default class EmployeeList extends Component {
                           >
                             <FontAwesomeIcon icon={faStreetView} />
                           </Link>
-                          {/* <Button
-                            size="mm"
-                            value="view skills"
-                            variant="outline-primary"
-                          >
-                            <FontAwesomeIcon icon={faStreetView} />
-                          </Button> */}
+
                           <Link
                             to={""}
                             className="btn btn-sm btn-outline-primary"
                             size="mm"
-                            value="view skills"
+                            value="add skills"
                             variant="outline-primary"
                           >
                             <FontAwesomeIcon icon={faPlus} />
                           </Link>
-                          {/* <Button
-                            size="mm"
-                            value="add skills"
-                            variant="outline-primary"
-                            align="right"
-                          >
-                            <FontAwesomeIcon icon={faPlus} />
-                          </Button> */}
                         </ButtonGroup>
                       </td>
                       <td>
@@ -146,9 +132,6 @@ export default class EmployeeList extends Component {
                           >
                             <FontAwesomeIcon icon={faEdit} />
                           </Link>
-                          {/* <Button size="sm" variant="outline-primary">
-                           
-                          </Button>{" "} */}
 
                           <Button
                             size="sm"
