@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("employees")
+//@CrossOrigin(origins = "http://localhost:3000")
 public class EmployeeController {
     public static final Logger logger = LoggerFactory.getLogger(EmployeeController.class);
     @Autowired
@@ -24,6 +26,7 @@ public class EmployeeController {
     // ................Retrieve all employees................
     @GetMapping("")
     public ResponseEntity<List<Employee>> getAllEmployee() {
+
         logger.info("fetching all employees");
         List<Employee> employees = employeeService.findAll();
         if (employees.isEmpty()) {
@@ -47,7 +50,8 @@ public class EmployeeController {
     }
     //................create new employee.....................
 
-    @PostMapping("")
+    @PostMapping(value="",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+
     public ResponseEntity<?> addEmployee(@RequestBody  Employee employee) {
         logger.info("creating an employee:  {}", employee);
         if (employeeService.isEmployeeExists(employee)) {
@@ -60,7 +64,7 @@ public class EmployeeController {
         return new ResponseEntity<>(employee, HttpStatus.OK);
     }
     //...................updating an employee..........................
-    @PutMapping("/{employeeId}")
+    @PutMapping(value="/{employeeId}",consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<?> putEmployeeById(@PathVariable(name = "employeeId") String id, @RequestBody @Valid Employee employee) {
         logger.info("fetching and updating employee info with id {}",id);
         Employee currentEmployee= employeeService.update(id, employee);

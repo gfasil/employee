@@ -1,14 +1,12 @@
 package com.fh.skilltracker.service;
 
 import com.fh.skilltracker.domain.Employee;
-import com.fh.skilltracker.domain.Skill;
 import com.fh.skilltracker.exception.EntityNotFoundException;
 import com.fh.skilltracker.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -64,13 +62,13 @@ public class EmployeeServiceImp implements EmployeeService {
         currentEmployee.setBirthDate(employee.getBirthDate());
         currentEmployee.setBusinessUnit(employee.getBusinessUnit());
         currentEmployee.setCompanyEmail(employee.getCompanyEmail());
+        currentEmployee.setContactEmail(employee.getContactEmail());
         currentEmployee.setHiredDate(employee.getHiredDate());
         currentEmployee.setFirstName(employee.getFirstName());
         currentEmployee.setLastName(employee.getLastName());
         currentEmployee.setRole(employee.getRole());
-        List<Skill> skills=new ArrayList<>();
-        skills.addAll(employee.getSkills());
-        currentEmployee.setSkills(skills);
+
+        currentEmployee.setSkills(employee.getSkills());
 
         return employeeRepository.save(currentEmployee);
     }

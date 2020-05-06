@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("employees")
+//@CrossOrigin(origins = "http://localhost:3000",allowedHeaders = "*")
 public class SkillController {
     @Autowired
     EmployeeService employeeService;
@@ -26,6 +28,7 @@ public class SkillController {
 
     // ................Retrieve all skills for an employee................
     @GetMapping("/{employeeId}/skills")
+    @CrossOrigin(origins = "http://localhost:3000",allowedHeaders = "*")
     public ResponseEntity<List<Skill>> getAllEmployeeSkillById(@PathVariable(name = "employeeId") String employeeId) {
         logger.info("fetching all skills for  employee with id id {}", employeeId);
         List<Skill> skills = skillService.findAllEmployeeSkills(employeeId);
@@ -50,7 +53,7 @@ public class SkillController {
     }
 
     //..............adding skill for an employee................
-    @PostMapping("/employees/{employeeId}/skills")
+    @PostMapping(value="/{employeeId}/skills" ,consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addSkill(@PathVariable(name = "employeeId") String employeeId, @RequestBody @Valid Skill skill) {
         logger.info("adding a skill {} for employee id :  {}", skill, employeeId);
         Skill newSkill = skillService.addSkill(employeeId, skill);
@@ -58,7 +61,7 @@ public class SkillController {
     }
 
     //......................update a skill for an employee.............
-    @PutMapping("/{employeeId}/skills/{skillId}")
+    @PutMapping(value="/{employeeId}/skills/{skillId}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> putEmployeeById(@PathVariable(name = "employeeId") String employeeId, @PathVariable(name = "skillId") String skillId, @RequestBody @Valid Skill skill) {
         logger.info("fetching and updating employee skill info with skill id: {} and employee id: {}", skillId, employeeId);
 
