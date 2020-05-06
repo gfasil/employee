@@ -27,9 +27,9 @@ function App() {
               <Route path="/edit/:id" exact component={Employee}></Route>
               <Route path="/list" exact component={EmployeeList}></Route>
               <Route path="/:id/skillsList" exact component={SkillList}></Route>
-              <Route path="/:id/addkills" exact component={Skills}></Route>
+              <Route path="/:id/addSkill" exact component={Skills}></Route>
               <Route
-                path="/:id/editSKill/:skillId"
+                path="/editSKill/:skillId"
                 exact
                 component={Skills}
               ></Route>
@@ -38,7 +38,6 @@ function App() {
         </Row>
       </Container>
       <Footer></Footer>
-      <p>hello employee tracker</p>
     </Router>
   );
 }

@@ -108,7 +108,7 @@ export default class EmployeeList extends Component {
                           </Link>
 
                           <Link
-                            to={""}
+                            to={employee.id + "/addSkill"}
                             className="btn btn-sm btn-outline-primary"
                             size="mm"
                             value="add skills"

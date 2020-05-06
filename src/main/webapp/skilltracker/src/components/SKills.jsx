@@ -13,6 +13,7 @@ import axios from "axios";
 export default class Skill extends Component {
   state = {};
   initialState = {
+    employeeId: "",
     id: "",
     description: "",
     fieldId: "",
@@ -33,10 +34,63 @@ export default class Skill extends Component {
   componentDidMount() {
     const skillId = this.props.match.params.skillId;
     const employeeId = this.props.match.params.id;
+    this.setState({ employeeId: employeeId });
     if (employeeId != null && skillId != null) {
       this.findById(employeeId, skillId);
     }
   }
+  saveSKill = async (skill, employeeId) => {
+    const result = await axios.post(
+      "http://localhost:8080/employees/" + employeeId + "/skills",
+      skill
+    );
+    if (result != null) {
+      //  alert("success");
+      this.setState({ show: true });
+      console.log(this.state.show);
+      setTimeout(() => {
+        this.setState({ show: false });
+      }, 3000);
+    } else {
+      this.setState({ show: false });
+    }
+    this.setState(this.initialState);
+  };
+  submitSKill = (event) => {
+    event.preventDefault();
+    const skill = {
+      description: this.state.description,
+      field: {
+        name: this.state.fieldName,
+        type: this.state.fieldType,
+      },
+      experience: this.state.experience,
+      summary: this.state.summary,
+    };
+    this.saveSKill(skill, this.state.employeeId);
+  };
+  findById = (employeeId, skillId) => {
+    axios
+      .get(
+        "http://localhost:8080/employees/" + employeeId + "/skills/" + skillId
+      )
+      .then((skill) => {
+        if (skill != null) {
+          this.setState({
+            id: skill.id,
+            description: skill.description,
+            fieldId: skill.field.id,
+            fieldName: skill.field.name,
+            fieldType: skill.field.type,
+            experience: skill.experience,
+            summary: skill.summary,
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   resetSkill = () => {
     console.log("hello");
@@ -66,7 +120,8 @@ export default class Skill extends Component {
           <Card className={"border border-dark bg-dark text-white"}>
             <Card.Header>
               <FontAwesomeIcon icon={this.state.id ? faEdit : faPlusSquare} />
-              {this.state.id ? "edit skill info" : "Add skill"}
+              {this.state.id ? "edit skill info" : "Add skill"} for{" "}
+              {this.state.employeeId}
             </Card.Header>
             <Form
               onReset={this.resetSkill}
@@ -75,79 +130,66 @@ export default class Skill extends Component {
             >
               <Card.Body>
                 <Form.Row>
-                  <Form.Group as={Col} controlId="formGridFname">
-                    <Form.Label>First Name</Form.Label>
+                  <Form.Group as={Col} controlId="formGridDescription">
+                    <Form.Label>Description</Form.Label>
                     <Form.Control
                       className={"bg-dark text-white"}
                       required
                       type="text"
-                      placeholder="first name"
+                      placeholder="description"
                       name="description"
                       value={description}
                       onChange={this.skillChange}
                     />
                   </Form.Group>
-                  <Form.Group as={Col} controlId="formGridLname">
-                    <Form.Label>Last Name</Form.Label>
+                  <Form.Group as={Col} controlId="formGridfieldName">
+                    <Form.Label>field Name</Form.Label>
                     <Form.Control
                       className={"bg-dark text-white"}
                       required
                       type="text"
                       value={fieldName}
                       onChange={this.skillChange}
-                      placeholder="last name"
-                      name="lname"
+                      placeholder="Field name"
+                      name="fieldName"
                     />
                   </Form.Group>
-                  <Form.Group as={Col} controlId="formGridCountry">
-                    <Form.Label>country</Form.Label>
+                  <Form.Group as={Col} controlId="formGridFieldType">
+                    <Form.Label>field Type</Form.Label>
                     <Form.Control
                       className={"bg-dark text-white"}
                       required
                       value={fieldType}
                       onChange={this.skillChange}
-                      placeholder="country"
-                      name="type"
+                      placeholder="field type"
+                      name="fieldType"
                     />
                   </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
-                  <Form.Group as={Col} controlId="formGridBdate">
-                    <Form.Label>birth Date</Form.Label>
+                  <Form.Group as={Col} controlId="formGridExperience">
+                    <Form.Label>Experience</Form.Label>
                     <Form.Control
                       className={"bg-dark text-white"}
                       required
                       type="text"
-                      placeholder=""
+                      placeholder="years of experience"
                       value={experience}
                       onChange={this.skillChange}
-                      name="bdate"
+                      name="experience"
                     />
                   </Form.Group>
-                </Form.Row>
-                <Form.Row>
-                  <Form.Group as={Col} controlId="formGridCompanyEmail">
+                  <Form.Group as={Col} controlId="formGridSummary">
                     <Form.Label>summary of the skill</Form.Label>
                     <Form.Control
                       className={"bg-dark text-white"}
                       required
                       type="text"
-                      placeholder="Enter company email"
+                      placeholder="short summary of skill"
                       value={summary}
                       onChange={this.skillChange}
                       name="summary"
-                    />
-                  </Form.Group>
-                  <Form.Group as={Col} controlId="formGridDescription">
-                    <Form.Label>description</Form.Label>
-                    <Form.Control
-                      className={"bg-dark text-white"}
-                      required
-                      value={description}
-                      onChange={this.skillChange}
-                      placeholder="1234 Main St"
-                      name="description"
                     />
                   </Form.Group>
                 </Form.Row>
