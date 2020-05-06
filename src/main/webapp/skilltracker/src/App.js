@@ -29,7 +29,7 @@ function App() {
               <Route path="/:id/skillsList" exact component={SkillList}></Route>
               <Route path="/:id/addSkill" exact component={Skills}></Route>
               <Route
-                path="/editSKill/:skillId"
+                path="/editSKill/:skillId/:employeeId"
                 exact
                 component={Skills}
               ></Route>

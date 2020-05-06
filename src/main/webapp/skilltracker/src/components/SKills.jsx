@@ -33,9 +33,12 @@ export default class Skill extends Component {
 
   componentDidMount() {
     const skillId = this.props.match.params.skillId;
-    const employeeId = this.props.match.params.id;
-    this.setState({ employeeId: employeeId });
+    const employeeId = this.props.match.params.employeeId;
+    this.setState({ employeeId: employeeId, skillId: skillId });
     if (employeeId != null && skillId != null) {
+      console.log(
+        "inside at componenet mount empdi:" + employeeId + "skill id" + skillId
+      );
       this.findById(employeeId, skillId);
     }
   }
@@ -69,21 +72,56 @@ export default class Skill extends Component {
     };
     this.saveSKill(skill, this.state.employeeId);
   };
+
+  updateSKill = (event) => {
+    event.preventDefault();
+    const skill = {
+      description: this.state.description,
+      field: {
+        name: this.state.fieldName,
+        type: this.state.fieldType,
+      },
+      experience: this.state.experience,
+      summary: this.state.summary,
+    };
+    this.putSKill(skill, this.state.employeeId, this.state.skillId);
+  };
+
+  putSKill = async (skill, employeeId, skillId) => {
+    const result = await axios.put(
+      "http://localhost:8080/employees/" + employeeId + "/skills/" + skillId,
+      skill
+    );
+    if (result != null) {
+      //  alert("success");
+      this.setState({ show: true });
+      console.log(this.state.show);
+      setTimeout(() => {
+        this.setState({ show: false });
+      }, 3000);
+    } else {
+      this.setState({ show: false });
+    }
+    this.setState(this.initialState);
+  };
+
   findById = (employeeId, skillId) => {
     axios
       .get(
         "http://localhost:8080/employees/" + employeeId + "/skills/" + skillId
       )
       .then((skill) => {
-        if (skill != null) {
+        const currentSkill = skill.data;
+        if (currentSkill != null) {
+          console.log("skill found" + currentSkill);
           this.setState({
-            id: skill.id,
-            description: skill.description,
-            fieldId: skill.field.id,
-            fieldName: skill.field.name,
-            fieldType: skill.field.type,
-            experience: skill.experience,
-            summary: skill.summary,
+            id: currentSkill.id,
+            description: currentSkill.description,
+            fieldId: currentSkill.field.id,
+            fieldName: currentSkill.field.name,
+            fieldType: currentSkill.field.type,
+            experience: currentSkill.experience,
+            summary: currentSkill.summary,
           });
         }
       })
@@ -115,7 +153,17 @@ export default class Skill extends Component {
     } = this.state;
     return (
       <div>
-        <div></div>
+        <div styles={{ display: this.state.show ? "block" : "none" }}>
+          <MyToast
+            show={this.state.show}
+            message={
+              this.state.method === "put"
+                ? "skill Updated Successfully."
+                : "skill Saved Successfully."
+            }
+            type={"success"}
+          />
+        </div>
         <div>
           <Card className={"border border-dark bg-dark text-white"}>
             <Card.Header>

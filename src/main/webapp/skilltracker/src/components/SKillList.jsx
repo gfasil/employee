@@ -97,7 +97,10 @@ export default class SkillList extends Component {
                           <ButtonGroup>
                             <Link
                               to={
-                                this.state.employeeId + "/editSKill/" + skill.id
+                                "/editSKill/" +
+                                skill.id +
+                                "/" +
+                                this.state.employeeId
                               }
                               className="btn btn-sm btn-outline-primary"
                               size="mm"

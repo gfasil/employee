@@ -15,7 +15,6 @@ export default class Employee extends Component {
   constructor(props) {
     super(props);
     this.state = this.initialState;
-
     this.submitEmployee = this.submitEmployee.bind(this);
     this.empChange = this.empChange.bind(this);
   }
