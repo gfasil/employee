@@ -3,13 +3,10 @@ import { Card, Table, ButtonGroup, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import {
-  faSave,
-  faPlusSquare,
   faEdit,
   faTrash,
   faPlus,
   faStreetView,
-  faThumbsDown,
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import MyToast from "./MyToast";
