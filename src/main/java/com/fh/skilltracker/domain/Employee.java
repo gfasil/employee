@@ -1,15 +1,19 @@
 package com.fh.skilltracker.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,6 +21,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+//@EntityListeners(AuditingEntityListener.class)
+@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
+        allowGetters = true)
 public class Employee {
     @Id
     @GeneratedValue(generator = "uuid")
@@ -57,6 +64,16 @@ public class Employee {
     @NotNull
     private BusinessUnit businessUnit;
 
+    @Column(nullable = true, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
+    private Date createdAt;
+
+    @Column(nullable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    @LastModifiedDate
+    private Date updatedAt;
+
     public Employee(String id,String firstName, String lastName, Address address, String contactEmail,
                     String companyEmail, String birthDate, String hiredDate, ROLE role, BusinessUnit businessUnit) {
         this.firstName=firstName;
@@ -69,5 +86,20 @@ public class Employee {
         this.contactEmail=contactEmail;
         this.hiredDate=hiredDate;
         this.id=id;
+
     }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
+    }
+
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = new Date();
+    }
+
+
 }

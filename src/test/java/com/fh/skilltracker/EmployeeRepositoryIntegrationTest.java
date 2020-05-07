@@ -1,23 +1,20 @@
 package com.fh.skilltracker;
 
-import com.fh.skilltracker.domain.Address;
-import com.fh.skilltracker.domain.BusinessUnit;
 import com.fh.skilltracker.domain.Employee;
-import com.fh.skilltracker.domain.ROLE;
 import com.fh.skilltracker.repository.EmployeeRepository;
+import com.fh.skilltracker.util.Util;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@TestPropertySource(
+        locations = "classpath:application-integrationtest.properties")
 public class EmployeeRepositoryIntegrationTest {
 
     @Autowired
@@ -28,20 +25,19 @@ public class EmployeeRepositoryIntegrationTest {
     private EmployeeRepository employeeRepository;
 
     // write test cases here
-
+    Employee employee1= Util.TEST_DATA.apply("user1 first name","user1 last name");
     @Test
     public void whenFindByName_thenReturnEmployee() {
         // given
 
-        Employee alex = new Employee(UUID.randomUUID().toString(),"alex","habte",new Address(),"g@gmail.com","g@gmail.com","10-10-2020","10-10-1994", ROLE.TECHNICAL_CONSULTANT, BusinessUnit.API_MANAGEMENT);
-        entityManager.persist(alex);
+         entityManager.persist(employee1);
         entityManager.flush();
 
         // when
-        Employee found = employeeRepository.findById(alex.getId()).get();
+        Employee found = employeeRepository.findById(employee1.getId()).get();
 
         // then
         assertThat(found.getId())
-                .isEqualTo(alex.getId());
+                .isEqualTo(employee1.getId());
     }
 }
