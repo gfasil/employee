@@ -19,14 +19,17 @@ export default class EmployeeList extends Component {
       employees: [],
     };
   }
+
   async loadData() {
-    const result = await axios.get("http://localhost:8081/employees");
+    const result = await axios.get("http://localhost:8080/employees");
     this.setState({ employees: result.data });
     console.log(result.data);
   }
+
   async componentDidMount() {
     this.loadData();
   }
+
   deleteEmployee = async (employeeId) => {
     const result = await axios.delete(
       "http://localhost:8080/employees/" + employeeId
@@ -46,7 +49,6 @@ export default class EmployeeList extends Component {
     } else {
       this.setState({ show: false });
     }
-    // console.log(result.data);
   };
   render() {
     return (
@@ -70,7 +72,6 @@ export default class EmployeeList extends Component {
                 <tr>
                   <th>First Name</th>
                   <th>Last Name</th>
-
                   <th>Role</th>
                   <th>Birth Date</th>
                   <th colSpan="1" align="center">

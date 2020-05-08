@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Form, Button, Col, Alert } from "react-bootstrap";
+import { Card, Form, Button, Col } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MyToast from "./MyToast";
 import {
@@ -36,14 +36,24 @@ export default class Employee extends Component {
     assignedTo: null,
     role: "",
     bussinessUnit: "",
+    employees: [],
   };
+
+  async loadData() {
+    const result = await axios.get("http://localhost:8080/employees");
+    this.setState({ employees: result.data });
+    console.log(result.data);
+  }
+
   componentDidMount() {
     const employeeId = this.props.match.params.id;
+    this.loadData();
 
     if (employeeId != null) {
       this.findById(employeeId);
     }
   }
+
   findById = (employeeId) => {
     axios
       .get("http://localhost:8080/employees/" + employeeId)
@@ -81,7 +91,6 @@ export default class Employee extends Component {
       employee
     );
     if (result != null) {
-      //  alert("success");
       this.setState({ show: true });
       console.log(this.state.show);
       setTimeout(() => {
@@ -113,6 +122,7 @@ export default class Employee extends Component {
     }
     this.setState(this.initialState);
   };
+
   submitEmployee = (event) => {
     event.preventDefault();
     const employee = {
@@ -130,24 +140,28 @@ export default class Employee extends Component {
       },
       companyEmail: this.state.companyEmail,
       contactEmail: this.state.contactEmail,
-      assignedTo: this.state.assignedTo,
+      assignedTo: null,
       role: this.state.role,
       businessUnit: this.state.bussinessUnit,
     };
     this.saveEmp(employee);
   };
+
   resetEmployee = () => {
     console.log("hello");
     this.setState(() => this.initialState);
   };
+
   empChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
+
   employeeList = () => {
     return this.props.history.push("/list");
   };
+
   updateEmployee = (event) => {
     event.preventDefault();
     const employee = {
@@ -166,7 +180,7 @@ export default class Employee extends Component {
       },
       companyEmail: this.state.companyEmail,
       contactEmail: this.state.contactEmail,
-      assignedTo: this.state.assignedTo,
+      assignedTo: null,
       role: this.state.role,
       businessUnit: this.state.bussinessUnit,
     };
@@ -340,6 +354,7 @@ export default class Employee extends Component {
                       <option>...</option>
                     </Form.Control>
                   </Form.Group>
+
                   <Form.Group as={Col} controlId="formGridSuite">
                     <Form.Label>street</Form.Label>
                     <Form.Control
@@ -374,16 +389,23 @@ export default class Employee extends Component {
                       name="hdate"
                     />
                   </Form.Group>
+
                   <Form.Group as={Col} controlId="formGridassignedTo">
-                    <Form.Label>assigned to</Form.Label>
+                    <Form.Label>assigned To</Form.Label>
                     <Form.Control
                       className={"bg-dark text-white"}
-                      type="text"
-                      placeholder="assigned to"
+                      as="select"
                       value={assignedTo}
                       onChange={this.empChange}
                       name="assignedTo"
-                    />
+                    >
+                      <option>hello</option>
+                      {this.state.employees.map((employee) => (
+                        <option key={employee.id} value={null}>
+                          {employee.id}
+                        </option>
+                      ))}
+                    </Form.Control>
                   </Form.Group>
                   <Form.Group as={Col} controlId="role">
                     <Form.Label>Role</Form.Label>

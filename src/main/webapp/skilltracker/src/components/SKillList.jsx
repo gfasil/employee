@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import MyToast from "./MyToast";
 
 export default class SkillList extends Component {
   state = {};
@@ -39,7 +38,6 @@ export default class SkillList extends Component {
         skillId
     );
 
-    // this.setState({ employees: result.data });
     if (result != null) {
       this.setState({ show: true });
       setTimeout(() => {
@@ -51,7 +49,6 @@ export default class SkillList extends Component {
     } else {
       this.setState({ show: false });
     }
-    // console.log(result.data);
   };
   render() {
     return (
