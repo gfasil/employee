@@ -1,5 +1,9 @@
-package com.fh.skilltracker.config;
+/*code used to add swagger support for the application
+we can use swagger to test our end points
+@Author fasil habtegiorgis
 
+*/
+package com.fh.skilltracker.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.RequestHandlerSelectors;

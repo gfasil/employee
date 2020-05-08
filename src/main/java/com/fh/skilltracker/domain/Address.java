@@ -1,5 +1,6 @@
+/*address domain
+@Author Fasil Habtegiorgis*/
 package com.fh.skilltracker.domain;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Address {
+    // generate id using UUID and save it as a string
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(
@@ -28,7 +30,6 @@ public class Address {
             strategy = "uuid"
     )
     @Column(columnDefinition = "CHAR(32)")
-
     private String id;
     @NotNull
     private String description;
@@ -46,18 +47,19 @@ public class Address {
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt;
-
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
+
+    // method to populate created at and updated at upon persist
     @PrePersist
     public void prePersist() {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-
+    // method to populate created at and updated at upon update
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = new Date();

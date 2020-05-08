@@ -11,9 +11,13 @@ import java.util.List;
 
 @Service
 public class EmployeeServiceImp implements EmployeeService {
-    @Autowired
+
     EmployeeRepository employeeRepository;
 
+    @Autowired
+    public EmployeeServiceImp( EmployeeRepository employeeRepository){
+        this.employeeRepository=employeeRepository;
+    }
     @Override
     public List<Employee> findAll() {
         return employeeRepository.findAll();
@@ -68,9 +72,7 @@ public class EmployeeServiceImp implements EmployeeService {
         currentEmployee.setFirstName(employee.getFirstName());
         currentEmployee.setLastName(employee.getLastName());
         currentEmployee.setRole(employee.getRole());
-
         currentEmployee.setSkills(employee.getSkills());
-
         return employeeRepository.save(currentEmployee);
     }
 

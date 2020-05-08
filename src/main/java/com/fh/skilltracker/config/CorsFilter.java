@@ -1,8 +1,13 @@
-package com.fh.skilltracker.config;
 
+/*code used to allow cros origin inorder fo our backend to accessible to outside environment
+all requests pass through this filter before hitting the controllers
+this filter adds allow-control-cors-origin for all
+@Author fasil habtegiorgis
+
+*/
+package com.fh.skilltracker.config;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

@@ -1,7 +1,7 @@
+/*code to handle entity not found error exceptions
+@Author Fasil Habtegiorgis*/
 package com.fh.skilltracker.exception;
-
 import org.apache.commons.lang3.StringUtils;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;

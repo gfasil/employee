@@ -6,10 +6,9 @@ export default class Welcome extends Component {
   render() {
     return (
       <Jumbotron className="bg-dark text-white">
-        <h1>Welcome to Employee tracker system</h1>
-        <p>
-          track your skills, improve yourself, improve your life. Profiecient
-        </p>
+        <h1> Leading digital change. </h1>
+        <h1>Driving real results.</h1>
+        <p>track your skills, improve yourself, improve your life.</p>
       </Jumbotron>
     );
   }

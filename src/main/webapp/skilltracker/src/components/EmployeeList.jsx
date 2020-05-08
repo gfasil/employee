@@ -20,7 +20,7 @@ export default class EmployeeList extends Component {
     };
   }
   async loadData() {
-    const result = await axios.get("http://localhost:8080/employees");
+    const result = await axios.get("http://localhost:8081/employees");
     this.setState({ employees: result.data });
     console.log(result.data);
   }

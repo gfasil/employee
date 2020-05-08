@@ -1,5 +1,4 @@
 package com.fh.skilltracker.domain;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +7,6 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
@@ -25,6 +23,7 @@ import java.util.List;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Employee {
+    // generate id using UUID and save it as a string
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(
@@ -32,7 +31,6 @@ public class Employee {
             strategy = "uuid"
     )
     @Column(columnDefinition = "CHAR(32)")
-
     private String id;
     @NotNull
     private String firstName;
@@ -63,12 +61,10 @@ public class Employee {
     private Employee assignedTo;
     @NotNull
     private BusinessUnit businessUnit;
-
     @Column(nullable = true, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date createdAt;
-
     @Column(nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
@@ -88,14 +84,13 @@ public class Employee {
         this.id=id;
 
     }
-
+// method to populate created at and updated at upon persist
     @PrePersist
     public void prePersist() {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
-
-
+    // method to populate created at and updated at upon update
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = new Date();

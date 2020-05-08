@@ -21,6 +21,7 @@ import java.util.Date;
 @JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
         allowGetters = true)
 public class Field {
+    // generate id using UUID and save it as a string
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(
@@ -42,14 +43,14 @@ public class Field {
     @Temporal(TemporalType.TIMESTAMP)
     @LastModifiedDate
     private Date updatedAt;
-
+    // method to populate created at and updated at upon persist
     @PrePersist
     public void prePersist() {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
 
-
+    // method to populate created at and updated at upon update
     @PreUpdate
     public void preUpdate() {
         this.updatedAt = new Date();
