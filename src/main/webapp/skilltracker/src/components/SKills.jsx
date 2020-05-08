@@ -21,12 +21,12 @@ export default class Skill extends Component {
     fieldType: "",
     experience: "",
     summary: "",
+    show: false,
   };
 
   constructor(props) {
     super(props);
     this.state = this.initialState;
-
     this.submitSkill = this.submitSKill.bind(this);
     this.skillChange = this.skillChange.bind(this);
   }

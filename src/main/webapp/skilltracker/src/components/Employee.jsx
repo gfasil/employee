@@ -345,14 +345,10 @@ export default class Employee extends Component {
                     <Form.Control
                       className={"bg-dark text-white"}
                       required
-                      as="select"
                       value={region}
                       onChange={this.empChange}
                       name="region"
-                    >
-                      <option>Choose...</option>
-                      <option>...</option>
-                    </Form.Control>
+                    />
                   </Form.Group>
 
                   <Form.Group as={Col} controlId="formGridSuite">
