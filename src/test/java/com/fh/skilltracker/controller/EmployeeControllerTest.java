@@ -29,6 +29,7 @@ class EmployeeControllerTest {
 
     @MockBean
     private EmployeeService service;
+
     @Test
     public void givenEmployees_whenGetEmployees_thenReturnJsonArray()
             throws Exception {

@@ -21,10 +21,6 @@ ARG DEPENDENCY=/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-#//\\ARG JAVA_HOME=PROGRA~1/Java/jdk1.8.0_111
-#COPY config.crt ${JAVA_HoME}/jre/lib/security/
-RUN \
-    cd rogram files/Java/jdk1.8.0_111/jre/lib/security \
-    && keytool -keystore cacerts -storepass changeit -noprompt -trustcacerts -importcert -alias config -file config.crt
+
 # Run the Spring boot application
 ENTRYPOINT ["java", "-cp", "app:app/lib/*","com.fh.skilltracker.SkilltrackerApplication"]

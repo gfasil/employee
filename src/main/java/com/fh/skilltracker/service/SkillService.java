@@ -1,12 +1,11 @@
 package com.fh.skilltracker.service;
 
 import com.fh.skilltracker.domain.Skill;
-import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.util.List;
 
-@Service
+//@Service
 public interface SkillService {
     List<Skill> findAllEmployeeSkills(String employeeId);
     Skill findEmployeeSkillById(String employeeId, String skillId);

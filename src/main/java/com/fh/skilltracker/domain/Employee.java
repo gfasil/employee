@@ -13,7 +13,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -84,12 +83,14 @@ public class Employee {
         this.id=id;
 
     }
-// method to populate created at and updated at upon persist
+
+    // method to populate created at and updated at upon persist
     @PrePersist
     public void prePersist() {
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
+
     // method to populate created at and updated at upon update
     @PreUpdate
     public void preUpdate() {

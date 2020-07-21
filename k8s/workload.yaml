@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Enter deployment name
+spec:
+  replicas: 2
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: skills-frontend
+  template:
+    metadata:
+      labels:
+        app: skills-frontend
+    spec:
+      containers:
+      - name: skills-frontend
+        image: fayaman/skills-frontend:release1

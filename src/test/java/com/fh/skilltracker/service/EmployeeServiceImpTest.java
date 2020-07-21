@@ -7,9 +7,11 @@ import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
-
+@RunWith(MockitoJUnitRunner.class)
 class EmployeeServiceImpTest {
     //mocking our repository
     @Mock
@@ -26,9 +28,10 @@ class EmployeeServiceImpTest {
     @InjectMocks
     EmployeeServiceImp employeeService;
     Employee employee;
+
     @BeforeEach
     void setUp() throws Exception{
-        MockitoAnnotations.initMocks(this);
+       MockitoAnnotations.initMocks(this);
         employee=new Employee();
         employee.setId(UUID.randomUUID().toString());
         employee.setRole(ROLE.TECHNICAL_CONSULTANT);
